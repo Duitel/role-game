@@ -30,6 +30,10 @@
 	let shakeDs = "";
 	let shakeDv = "";
 	let shakeSre = "";
+    let paradeDe = "";
+	let paradeDs = "";
+	let paradeDv = "";
+	let paradeSre = "";
 	
 	let uid = 0;
 	let score = 0;
@@ -49,6 +53,9 @@
 		let correct = currentQuestion.belongs_to.includes(role);
 		if(!correct){
 			shakeButton(role);
+            for(let correctRole of currentQuestion.belongs_to){
+                paradeButton(correctRole);
+            }
 		}
 
 		// Update score
@@ -79,7 +86,6 @@
 	}
 
 	function shakeButton(role){
-		console.log(role);
 		if (role === "data engineer"){
 				shakeDe = "shaking";
 		} else if (role === "data scientist"){
@@ -95,6 +101,24 @@
 			shakeDv = "";
 			shakeSre = "";
 		}, 250);
+	}
+
+    function paradeButton(role){
+		if (role === "data engineer"){
+				paradeDe = "parading";
+		} else if (role === "data scientist"){
+				paradeDs = "parading";
+		} else if (role === "datavisualisator"){
+				paradeDv = "parading";
+		} else if (role === "Site Reliability Engineer (SRE)"){
+				paradeSre = "parading";
+		}
+		setTimeout(() => {
+			paradeDe = "";
+			paradeDs = "";
+			paradeDv = "";
+			paradeSre = "";
+		}, 500);
 	}
 </script>
 
@@ -112,28 +136,28 @@
         <hr>
     </div>
 	<div id="answer_container">
-		<div class="column"><button class={shakeDe} on:click={() => handleAnswer("data engineer")}><h3>data engineer</h3></button>		
+		<div class="column"><button class="{shakeDe} {paradeDe}" on:click={() => handleAnswer("data engineer")}><h3>data engineer</h3></button>		
 			{#each de as answer (answer.id)}
 				<div class="answer {answer.correct ? 'correct':'incorrect'}" in:receive={{ key: answer.id }} out:send={{ key: answer.id }} animate:flip>
 					{answer.description}
 				</div>
 			{/each}
 		</div>
-		<div class="column"><button class={shakeDs} on:click={() => handleAnswer("data scientist")}><h3>data scientist</h3></button>
+		<div class="column"><button class="{shakeDs} {paradeDs}" on:click={() => handleAnswer("data scientist")}><h3>data scientist</h3></button>
 			{#each ds as answer (answer.id)}
 				<div class="answer {answer.correct ? 'correct':'incorrect'}" in:receive={{ key: answer.id }} out:send={{ key: answer.id }} animate:flip>
 					{answer.description}
 				</div>
 			{/each}
 		</div>
-		<div class="column"><button class={shakeDv} on:click={() => handleAnswer("datavisualisator")}><h3>datavisualisator</h3></button>
+		<div class="column"><button class="{shakeDv} {paradeDv}" on:click={() => handleAnswer("datavisualisator")}><h3>datavisualisator</h3></button>
 			{#each dv as answer (answer.id)}
 				<div class="answer {answer.correct ? 'correct':'incorrect'}" in:receive={{ key: answer.id }} out:send={{ key: answer.id }} animate:flip>
 					{answer.description}
 				</div>
 			{/each}
 		</div>
-		<div class="column"><button class={shakeSre} on:click={() => handleAnswer("Site Reliability Engineer (SRE)")}><h3>site reliability engineer (SRE)</h3></button>
+		<div class="column"><button class="{shakeSre} {paradeSre}" on:click={() => handleAnswer("Site Reliability Engineer (SRE)")}><h3>site reliability engineer (SRE)</h3></button>
 			{#each sre as answer (answer.id)}
 				<div class="answer {answer.correct ? 'correct':'incorrect'}" in:receive={{ key: answer.id }} out:send={{ key: answer.id }} animate:flip>
 					{answer.description}
@@ -189,11 +213,7 @@
 	}
 
 	.shaking {
-    /* Start the shake animation and make the animation last for 0.5 seconds */
-    animation: shake 0.5s;
-
-    /* When the animation is finished, start again */
-    animation-iteration-count: infinite;
+        animation: shake 0.5s infinite;
 	}
 	
 	@keyframes shake {
@@ -211,24 +231,16 @@
 	}
 
     .parading {
-    /* Start the shake animation and make the animation last for 0.5 seconds */
-    animation: parade 0.5s;
-
-    /* When the animation is finished, start again */
-    animation-iteration-count: infinite;
+        animation: parade 0.5s infinte;
 	}
 	
 	@keyframes parade {
-	    0% { transform: translate(1px, 1px) rotate(0deg); }
-	    10% { transform: translate(-1px, -2px) rotate(-1deg); }
-	    20% { transform: translate(-3px, 0px) rotate(1deg); }
-	    30% { transform: translate(3px, 2px) rotate(0deg); }
-	    40% { transform: translate(1px, -1px) rotate(1deg); }
-	    50% { transform: translate(-1px, 2px) rotate(-1deg); }
-	    60% { transform: translate(-3px, 1px) rotate(0deg); }
-	    70% { transform: translate(3px, 1px) rotate(-1deg); }
-	    80% { transform: translate(-1px, -1px) rotate(1deg); }
-	    90% { transform: translate(1px, 2px) rotate(0deg); }
-	    100% { transform: translate(1px, -2px) rotate(-1deg); }
+	    0% { transform: translate(0px, 0px) rotate(0deg); }
+	    15% { transform: translate(-3px, -20px) rotate(0deg); }
+	    30% { transform: translate(0px, 0px) rotate(0deg); }
+	    45% { transform: translate(3px, -15px) rotate(0deg); }
+	    60% { transform: translate(0px, 0px) rotate(0deg); }
+	    75% { transform: translate(1px, -10px) rotate(0deg); }
+	    100% { transform: translate(0px, 0px) rotate(0deg); }
 	}
 </style>
