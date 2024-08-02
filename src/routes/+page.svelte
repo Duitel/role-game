@@ -231,16 +231,15 @@
 	}
 
     .parading {
-        animation: parade 0.5s infinte;
+        animation: parade 0.1s 4 alternate;
 	}
 	
 	@keyframes parade {
-	    0% { transform: translate(0px, 0px) rotate(0deg); }
-	    15% { transform: translate(-3px, -20px) rotate(0deg); }
-	    30% { transform: translate(0px, 0px) rotate(0deg); }
-	    45% { transform: translate(3px, -15px) rotate(0deg); }
-	    60% { transform: translate(0px, 0px) rotate(0deg); }
-	    75% { transform: translate(1px, -10px) rotate(0deg); }
-	    100% { transform: translate(0px, 0px) rotate(0deg); }
-	}
+        from {
+            box-shadow: 0 0 10px -10px #C6B8CE;
+        }
+        to {
+            box-shadow: 0 0 10px 10px #C6B8CE;
+        }
+    }
 </style>
