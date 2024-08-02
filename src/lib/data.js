@@ -1,4 +1,4 @@
-export const data = [{'description': 'Zorgt voor de stabiliteit en betrouwbaarheid van systemen.', 'belongs_to': ['Site Reliability Engineer (SRE)']},
+export let data = [{'description': 'Zorgt voor de stabiliteit en betrouwbaarheid van systemen.', 'belongs_to': ['Site Reliability Engineer (SRE)']},
 {'description': 'Ontwikkelt en onderhoudt automatiseringstools.', 'belongs_to': ['Site Reliability Engineer (SRE)']},
 {'description': 'Monitort systeemprestaties en reageert op incidenten.', 'belongs_to': ['Site Reliability Engineer (SRE)']},
 {'description': 'Voert root cause analysis uit bij systeemstoringen.', 'belongs_to': ['Site Reliability Engineer (SRE)']},

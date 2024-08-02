@@ -35,7 +35,7 @@
 	let score = 0;
 	
 	function selectRandomQuestion() {
-		return data[Math.floor(Math.random()*data.length)];
+		return data.splice(Math.floor(Math.random()*data.length), 1)[0];
 	}
 	let currentQuestion = selectRandomQuestion();
 
