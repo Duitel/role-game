@@ -187,7 +187,18 @@
 
 	button {
 		margin-bottom: 10px;
+        height: 44px;
+        padding: 0px 16px;
+        font-size: small;
+        background-color: #42145f;
+        color: white;
+        border: none;
 	}
+    button:hover{
+        background-color: #714F87;
+        cursor: pointer;
+    }
+
 	.answer{
 		top: 0;
 		left: 0;
