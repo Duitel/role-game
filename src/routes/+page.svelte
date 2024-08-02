@@ -35,11 +35,16 @@
 	let score = 0;
 	
 	function selectRandomQuestion() {
+        if(data.length == 0){
+            return false;
+        }
 		return data.splice(Math.floor(Math.random()*data.length), 1)[0];
 	}
 	let currentQuestion = selectRandomQuestion();
 
-	function handleAnswer(role, button_id) {
+	function handleAnswer(role) {
+        if(currentQuestion == false){return;}
+
 		// Check answer
 		let correct = currentQuestion.belongs_to.includes(role);
 		if(!correct){
@@ -97,7 +102,15 @@
 	{#if de.length + ds.length + dv.length + sre.length > 0}
 		<div id="score">Score {score}/{de.length + ds.length + dv.length + sre.length}</div>
 	{/if}
-	<div id="prompt">bij welke rol hoort...<h2>{currentQuestion.description}</h2><hr></div>
+	<div id="prompt">
+        Hoe goed ken jij de verschillende specialisaties binnen het RWS Datalab? Bij welke rol hoort...
+        {#if currentQuestion}
+            <h2>{currentQuestion.description}</h2>
+        {:else}
+        <br><br>Dit waren alle vragen, dank voor het spelen!
+        {/if}
+        <hr>
+    </div>
 	<div id="answer_container">
 		<div class="column"><button class={shakeDe} on:click={() => handleAnswer("data engineer")}><h3>data engineer</h3></button>		
 			{#each de as answer (answer.id)}
@@ -184,6 +197,28 @@
 	}
 	
 	@keyframes shake {
+	    0% { transform: translate(1px, 1px) rotate(0deg); }
+	    10% { transform: translate(-1px, -2px) rotate(-1deg); }
+	    20% { transform: translate(-3px, 0px) rotate(1deg); }
+	    30% { transform: translate(3px, 2px) rotate(0deg); }
+	    40% { transform: translate(1px, -1px) rotate(1deg); }
+	    50% { transform: translate(-1px, 2px) rotate(-1deg); }
+	    60% { transform: translate(-3px, 1px) rotate(0deg); }
+	    70% { transform: translate(3px, 1px) rotate(-1deg); }
+	    80% { transform: translate(-1px, -1px) rotate(1deg); }
+	    90% { transform: translate(1px, 2px) rotate(0deg); }
+	    100% { transform: translate(1px, -2px) rotate(-1deg); }
+	}
+
+    .parading {
+    /* Start the shake animation and make the animation last for 0.5 seconds */
+    animation: parade 0.5s;
+
+    /* When the animation is finished, start again */
+    animation-iteration-count: infinite;
+	}
+	
+	@keyframes parade {
 	    0% { transform: translate(1px, 1px) rotate(0deg); }
 	    10% { transform: translate(-1px, -2px) rotate(-1deg); }
 	    20% { transform: translate(-3px, 0px) rotate(1deg); }
