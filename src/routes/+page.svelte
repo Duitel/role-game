@@ -64,12 +64,14 @@
 
 		// Check answer
 		let correct = currentQuestion.belongs_to.includes(role);
-		if(!correct){
+		
+        // Give visual feedback
+        if(!correct){
 			shakeButton(role);
-            for(let correctRole of currentQuestion.belongs_to){
-                paradeButton(correctRole);
-            }
 		}
+        for(let correctRole of currentQuestion.belongs_to){
+            paradeButton(correctRole);
+        }
 
 		// Update score
 		if(correct){
@@ -284,7 +286,7 @@
 	
 	@keyframes parade {
         from {
-            box-shadow: 0 0 10px -10px #C6B8CE;
+            box-shadow: 0 0 -10px -10px #C6B8CE;
         }
         to {
             box-shadow: 0 0 10px 10px #C6B8CE;
