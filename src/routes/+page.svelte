@@ -39,9 +39,14 @@
 	let paradeDs = "";
 	let paradeDv = "";
 	let paradeSre = "";
+    let animatePointDe = "";
+    let animatePointDs = "";
+	let animatePointDv = "";
+	let animatePointSre = "";
 	
 	let uid = 0;
 	let score = 0;
+    let addPoint = "0";
 
     let colors = ["#42145F", "#714F87", "#8D729F", "#A995B7", "#C6B8CE", "#E3DCE7"];
     let randomColor = colors[3];
@@ -68,7 +73,14 @@
         // Give visual feedback
         if(!correct){
 			shakeButton(role);
-		}
+            addPoint = "0";
+            for(let correctRole of currentQuestion.belongs_to){
+                animateAddPoint(correctRole);
+            }
+		} else {
+            addPoint = "1";
+            animateAddPoint(role);
+        }
         for(let correctRole of currentQuestion.belongs_to){
             paradeButton(correctRole);
         }
@@ -135,6 +147,27 @@
 			paradeSre = "";
 		}, 500);
 	}
+
+    function getRandomTranslation(){
+        return "transform: translate(" + Math.floor(40 + Math.random()* 200) + "px, " + Math.floor(40 + Math.random()* 50) * -1 + "px);opacity:1;"
+    }
+    function animateAddPoint(role){
+		if (role === "data engineer"){
+				animatePointDe = getRandomTranslation();
+		} else if (role === "data scientist"){
+				animatePointDs = getRandomTranslation();
+		} else if (role === "datavisualisator"){
+				animatePointDv = getRandomTranslation();
+		} else if (role === "Site Reliability Engineer (SRE)"){
+				animatePointSre = getRandomTranslation();
+		}
+		setTimeout(() => {
+			animatePointDe = "";
+			animatePointDs = "";
+			animatePointDv = "";
+			animatePointSre = "";
+		}, 1200);
+	}
 </script>
 
 <div>
@@ -153,28 +186,44 @@
         <div id="score">Score {score}/{de.length + ds.length + dv.length + sre.length}</div>
     </div>
 	<div id="answer_container">
-		<div class="column"><button class="{shakeDe} {paradeDe}" on:click={() => handleAnswer("data engineer")}><h3>data engineer</h3></button>		
+		<div class="column">
+            <button class="{shakeDe} {paradeDe}" on:click={() => handleAnswer("data engineer")}>
+                <div class="add-point" style="{animatePointDe}">+{addPoint}</div>
+                <h3>data engineer</h3>
+            </button>		
 			{#each de as answer (answer.id)}
 				<div class="answer {answer.correct ? 'correct':'incorrect'}" in:receive={{ key: answer.id }} out:send={{ key: answer.id }} animate:flip>
 					{answer.description}
 				</div>
 			{/each}
 		</div>
-		<div class="column"><button class="{shakeDs} {paradeDs}" on:click={() => handleAnswer("data scientist")}><h3>data scientist</h3></button>
+		<div class="column">
+            <button class="{shakeDs} {paradeDs}" on:click={() => handleAnswer("data scientist")}>
+                <div class="add-point" style="{animatePointDs}">+{addPoint}</div>
+                <h3>data scientist</h3>
+            </button>
 			{#each ds as answer (answer.id)}
 				<div class="answer {answer.correct ? 'correct':'incorrect'}" in:receive={{ key: answer.id }} out:send={{ key: answer.id }} animate:flip>
 					{answer.description}
 				</div>
 			{/each}
 		</div>
-		<div class="column"><button class="{shakeDv} {paradeDv}" on:click={() => handleAnswer("datavisualisator")}><h3>datavisualisator</h3></button>
+		<div class="column">
+            <button class="{shakeDv} {paradeDv}" on:click={() => handleAnswer("datavisualisator")}>
+                <div class="add-point" style="{animatePointDv}">+{addPoint}</div>
+                <h3>datavisualisator</h3>
+            </button>
 			{#each dv as answer (answer.id)}
 				<div class="answer {answer.correct ? 'correct':'incorrect'}" in:receive={{ key: answer.id }} out:send={{ key: answer.id }} animate:flip>
 					{answer.description}
 				</div>
 			{/each}
 		</div>
-		<div class="column"><button class="{shakeSre} {paradeSre}" on:click={() => handleAnswer("Site Reliability Engineer (SRE)")}><h3>site reliability engineer (SRE)</h3></button>
+		<div class="column">
+            <button class="{shakeSre} {paradeSre}" on:click={() => handleAnswer("Site Reliability Engineer (SRE)")}>
+                <div class="add-point" style="{animatePointSre}">+{addPoint}</div>
+                <h3>site reliability engineer (SRE)</h3>
+            </button>
 			{#each sre as answer (answer.id)}
 				<div class="answer {answer.correct ? 'correct':'incorrect'}" in:receive={{ key: answer.id }} out:send={{ key: answer.id }} animate:flip>
 					{answer.description}
@@ -232,10 +281,23 @@
         background-color: #42145f;
         color: white;
         border: none;
+        position: relative;
 	}
     button:hover{
         background-color: #714F87;
         cursor: pointer;
+    }
+    .add-point{
+        font-family: "Kalam", cursive;
+        font-weight: 400;
+        font-style: normal;
+        font-size: 40px;
+        color: black;
+        position: absolute;
+        float: left;
+        transform: translate(40px, 0);
+        transition: transform 1s;
+        opacity: 0;
     }
 
 	.answer{
