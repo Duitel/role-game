@@ -1,3 +1,8 @@
+<svelte:head>
+    <link href="https://fonts.googleapis.com/css2?family=Kalam:wght@300;400;700&display=swap" rel="stylesheet">
+</svelte:head>
+
+
 <script>
 	import { quintOut } from 'svelte/easing';
 	import { crossfade } from 'svelte/transition';
@@ -37,11 +42,15 @@
 	
 	let uid = 0;
 	let score = 0;
+
+    let colors = ["#42145F", "#714F87", "#8D729F", "#A995B7", "#C6B8CE", "#E3DCE7"];
+    let randomColor = colors[3];
 	
 	function selectRandomQuestion() {
         if(data.length == 0){
             return false;
         }
+        randomColor = colors[Math.floor(Math.random()*colors.length)]
 		return data.splice(Math.floor(Math.random()*data.length), 1)[0];
 	}
 	let currentQuestion = selectRandomQuestion();
@@ -123,17 +132,19 @@
 </script>
 
 <div>
-	{#if de.length + ds.length + dv.length + sre.length > 0}
-		<div id="score">Score {score}/{de.length + ds.length + dv.length + sre.length}</div>
-	{/if}
-	<div id="prompt">
-        Hoe goed ken jij de verschillende specialisaties binnen het RWS Datalab? Bij welke rol hoort...
-        {#if currentQuestion}
-            <h2>{currentQuestion.description}</h2>
-        {:else}
-        <br><br>Dit waren alle vragen, dank voor het spelen!
-        {/if}
-        <hr>
+    <div id="prompt-banner">
+        <div id="avatar" style="background-color: {randomColor};">
+            <img src="./img/avatar.png"/>
+        </div>
+        <div id="text-cloud">
+            Hoe goed ken jij de verschillende specialisaties binnen het RWS Datalab? Welke rol heb ik?
+            {#if currentQuestion}
+                <div id="prompt">Ik {currentQuestion.description}</div>
+            {:else}
+            <br><br>Dit waren alle vragen, dank voor het spelen!
+            {/if}
+        </div>
+        <div id="score">Score {score}/{de.length + ds.length + dv.length + sre.length}</div>
     </div>
 	<div id="answer_container">
 		<div class="column"><button class="{shakeDe} {paradeDe}" on:click={() => handleAnswer("data engineer")}><h3>data engineer</h3></button>		
@@ -168,8 +179,30 @@
 </div>
 
 <style>
-	#score {
-		position: absolute;
+    #prompt-banner{
+        display: flex;
+        flex-direction: row
+    }
+	#avatar{
+        width: 200px;
+        height: 200px;
+        border-radius: 100px;
+        transition: background-color 0.2s;
+    }
+    #text-cloud {
+        font-family: "Kalam", cursive;
+        font-weight: 300;
+        font-style: normal;
+        flex: 1;
+        padding-left: 10px;
+        padding-top: 15px;
+    }
+    #prompt {
+        font-weight: 700;
+        font-size: 30px;
+    }
+    #score {
+		width: 200px;
 		right: 100px;
 	}
 	
