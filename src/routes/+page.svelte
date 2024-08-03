@@ -45,12 +45,16 @@
 
     let colors = ["#42145F", "#714F87", "#8D729F", "#A995B7", "#C6B8CE", "#E3DCE7"];
     let randomColor = colors[3];
+
+    let avatars = ["", "1"];
+    let randomAvatar = avatars[0];
 	
 	function selectRandomQuestion() {
         if(data.length == 0){
             return false;
         }
         randomColor = colors[Math.floor(Math.random()*colors.length)]
+        randomAvatar = avatars[Math.floor(Math.random()*avatars.length)]
 		return data.splice(Math.floor(Math.random()*data.length), 1)[0];
 	}
 	let currentQuestion = selectRandomQuestion();
@@ -134,7 +138,7 @@
 <div>
     <div id="prompt-banner">
         <div id="avatar" style="background-color: {randomColor};">
-            <img src="./img/avatar.png"/>
+            <img src="./img/avatar{randomAvatar}.png"/>
         </div>
         <div id="text-cloud">
             Hoe goed ken jij de verschillende specialisaties binnen het RWS Datalab? Welke rol heb ik?
