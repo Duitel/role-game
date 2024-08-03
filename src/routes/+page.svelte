@@ -183,7 +183,7 @@
             <br><br>Dit waren alle vragen, dank voor het spelen!
             {/if}
         </div>
-        <div id="score">Score {score}/{de.length + ds.length + dv.length + sre.length}</div>
+        <div id="score">Score {score}<br>Voortgang {de.length + ds.length + dv.length + sre.length}/120</div>
     </div>
 	<div id="answer_container">
 		<div class="column">
