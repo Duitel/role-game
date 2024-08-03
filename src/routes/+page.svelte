@@ -234,6 +234,9 @@
 </div>
 
 <style>
+    * {
+        font-family: Arial, Helvetica, sans-serif;
+    }
     #prompt-banner{
         display: flex;
         flex-direction: row
@@ -253,6 +256,8 @@
         padding-top: 15px;
     }
     #prompt {
+        font-family: "Kalam", cursive;
+        font-style: normal;
         font-weight: 700;
         font-size: 30px;
     }
