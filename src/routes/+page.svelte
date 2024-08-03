@@ -183,7 +183,7 @@
             <br><br>Dit waren alle vragen, dank voor het spelen!
             {/if}
         </div>
-        <div id="score">Score {score}<br>Voortgang {de.length + ds.length + dv.length + sre.length}/120</div>
+        <div id="score">Aantal correct {score}<br>Voortgang {de.length + ds.length + dv.length + sre.length} / 120</div>
     </div>
 	<div id="answer_container">
 		<div class="column">
@@ -263,7 +263,8 @@
     }
     #score {
 		width: 200px;
-		right: 100px;
+        text-align: right;
+        padding-right: 50px;
 	}
 	
 	.column {
